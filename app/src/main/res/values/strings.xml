@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Lista de Tarefas</string>
+    <string name="app_name">Tarefas e Eventos</string>
     <string name="create_new_task">Criar</string>
-    <string name="create_new_task_content_description">Botão para criar nova tarefa</string>
-    <string name="tasks_app_header">Tarefas:</string>
-    <string name="new_task">Nova tarefa</string>
+    <string name="create_new_task_content_description">Botão para criar nova tarefa ou evento</string>
+    <string name="tasks_app_header">Tarefas e eventos:</string>
+    <string name="new_task">Nova/o tarefa ou evento</string>
     <string name="back">Voltar</string>
     <string name="title">Título</string>
     <string name="task_description">Descrição</string>
