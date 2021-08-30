@@ -2,9 +2,11 @@ package com.debajr.todolist.ui
 
 import android.os.Bundle
 import android.text.format.DateFormat.is24HourFormat
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.debajr.todolist.TaskApplication
+import com.debajr.todolist.databinding.ActivityEditOrRemoveTaskBinding
 import com.debajr.todolist.databinding.ActivityNewTaskBinding
 import com.debajr.todolist.extensions.formatToStringPTBR
 import com.debajr.todolist.extensions.text
@@ -15,11 +17,14 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import kotlinx.android.synthetic.main.activity_new_task.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import java.util.*
 
-class NewTaskActivity : AppCompatActivity() {
-
-    private lateinit var binding : ActivityNewTaskBinding
+class EditTaskActivity : AppCompatActivity() {
+    private lateinit var binding : ActivityEditOrRemoveTaskBinding
 
     private val taskViewModel: TaskViewModel by viewModels {
         TaskViewModelFactory((application as TaskApplication).repository)
@@ -27,8 +32,22 @@ class NewTaskActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityNewTaskBinding.inflate(layoutInflater)
+        binding = ActivityEditOrRemoveTaskBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        if(intent.hasExtra(TASK_ID)) {
+            val taskId = intent.getIntExtra(TASK_ID, 0)
+
+            var viewModelJob = Job()
+            val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+            uiScope.launch() {
+                val myTask = taskViewModel.getTaskByID(taskId)
+                binding.tilTitle.text = myTask.title
+                binding.tilDescription.text = myTask.description
+                binding.tilDate.text = myTask.date
+                binding.tilTime.text = myTask.time
+            }
+        }
 
         addListeners()
     }
@@ -55,13 +74,21 @@ class NewTaskActivity : AppCompatActivity() {
 
         binding.toolbar.setNavigationOnClickListener { finish() }
 
-        binding.efbConfirmCreateTask.setOnClickListener {
-            val task = Task(id=0, title = til_title.text,
+        binding.efbConfirmEditTask.setOnClickListener {
+            val task = Task(id=intent.getIntExtra(TASK_ID, 0), title = til_title.text,
                 description = til_description.text,
                 date = til_date.text,
                 time = til_time.text)
-            taskViewModel.insert(task)
+            taskViewModel.update(task)
             finish()
         }
+
+        binding.efbConfirmDeleteTask.setOnClickListener {
+
+        }
+    }
+
+    companion object {
+        const val TASK_ID = "task id"
     }
 }

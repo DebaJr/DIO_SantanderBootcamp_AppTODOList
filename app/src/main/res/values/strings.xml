@@ -2,7 +2,7 @@
     <string name="app_name">Tarefas e Eventos</string>
     <string name="create_new_task">Criar</string>
     <string name="create_new_task_content_description">Botão para criar nova tarefa ou evento</string>
-    <string name="tasks_app_header">Tarefas e eventos:</string>
+    <string name="tasks_app_header">Tarefas e Eventos:</string>
     <string name="new_task">Nova/o tarefa ou evento</string>
     <string name="back">Voltar</string>
     <string name="title">Título</string>
@@ -10,4 +10,11 @@
     <string name="date">Data</string>
     <string name="hour">Hora</string>
     <string name="confirm">Confirmar</string>
+    <string name="task_title_placeholder">Task Title Placeholder</string>
+    <string name="task_description_placeholder">Task Description Placeholder</string>
+    <string name="task_card_date_placeholder">00/00/20XX</string>
+    <string name="task_card_hour_placeholder">00:00</string>
+    <string name="save_task_error_msg">Falha ao salvar a tarefa/evento</string>
+    <string name="edit_task_label">Editar</string>
+    <string name="delete_task">Excluir</string>
 </resources>
