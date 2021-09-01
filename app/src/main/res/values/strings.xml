@@ -17,4 +17,8 @@
     <string name="save_task_error_msg">Falha ao salvar a tarefa/evento</string>
     <string name="edit_task_label">Editar</string>
     <string name="delete_task">Excluir</string>
+    <string name="confirm_delete_title">Excluir?</string>
+    <string name="confirm_delete_message">Tem certeza que deseja apagar esta/e tarefa/evento?</string>
+    <string name="string_yes">Sim</string>
+    <string name="string_no">Não</string>
 </resources>

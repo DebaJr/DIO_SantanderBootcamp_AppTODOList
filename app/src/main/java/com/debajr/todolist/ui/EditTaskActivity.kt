@@ -82,10 +82,6 @@ class EditTaskActivity : AppCompatActivity() {
             taskViewModel.update(task)
             finish()
         }
-
-        binding.efbConfirmDeleteTask.setOnClickListener {
-
-        }
     }
 
     companion object {

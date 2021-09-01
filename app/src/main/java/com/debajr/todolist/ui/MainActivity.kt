@@ -1,15 +1,19 @@
 package com.debajr.todolist.ui
 
+import android.R
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.debajr.todolist.TaskApplication
 import com.debajr.todolist.databinding.ActivityMainBinding
 import com.debajr.todolist.model.TaskViewModel
 import com.debajr.todolist.model.TaskViewModelFactory
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -49,16 +53,19 @@ class MainActivity : AppCompatActivity() {
         adapter.listenerEdit = {
             val intent = Intent(this, EditTaskActivity::class.java)
             intent.putExtra(EditTaskActivity.TASK_ID, it.id)
-            startActivityForResult(intent, EDIT_TASK)
+            startActivity(intent)
+            //startActivityForResult(intent, EDIT_TASK)
         }
-        adapter.listenerDelete = { taskViewModel.deleteTask(it) }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == EDIT_TASK && resultCode == AppCompatActivity.RESULT_OK){
-
-        }
+        adapter.listenerDelete = {
+            AlertDialog.Builder(this)
+                .setIcon(R.drawable.ic_dialog_alert)
+                .setTitle(getString(com.debajr.todolist.R.string.confirm_delete_title))
+                .setMessage(getString(com.debajr.todolist.R.string.confirm_delete_message))
+                .setPositiveButton(getString(com.debajr.todolist.R.string.string_yes),
+                    DialogInterface.OnClickListener { _, _ -> taskViewModel.deleteTask(it) })
+                .setNegativeButton(getString(com.debajr.todolist.R.string.string_no), null)
+                .show()
+             }
     }
 
     companion object {
